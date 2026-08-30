@@ -12,12 +12,19 @@ var (
 )
 
 func main() {
-	log.Println("Starting API Gateway")
+	log.Println("Starting API Gateway by Nitish_MNT")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello from API Gateway"))
-	})
+	mux := http.NewServeMux()
 
-	http.ListenAndServe(httpAddr, nil)
+	//In Older vserion of Go we used to use gorilla/mux for routing 
+	// but now we can use the default http package to handle routing
+	mux.HandleFunc("POST /trip/preview", handleTripPreview)
+
+	server := &http.Server{
+		Addr:httpAddr,
+		Handler: mux,
+	}
+	if err := server.ListenAndServe();err!=nil{
+		log.Printf("Http Server Error %v ", err)
+	}
 }
