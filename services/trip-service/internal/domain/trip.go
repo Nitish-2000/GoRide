@@ -6,21 +6,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type RideFareModel struct{
-	Id primitive.ObjectID
-	UserID string
-	PackageSlug string //eg: Van, luxuru, Sedan
-	TotalPriceInCents float64
 
-
-}
 
 
 type TripModel struct{
 	ID   primitive.ObjectID
 	UserID string
 	Status string
-	RideFare RideFareModel
+	RideFare *RideFareModel
 }
 
 type Triprepository interface{
